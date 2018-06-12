@@ -1,0 +1,152 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>touch test</title>
+    <style>
+        body{
+            overflow:scroll;
+        }
+        *{
+            margin:0;
+            padding:0;
+            border:0;
+        }
+      #box{
+
+         position: relative;
+      }
+        #box img{
+            width: 100%;
+           left: 0;
+            top:0;
+position: absolute;
+        }
+    </style>
+
+</head>
+<body>
+<div id="box" style="width:100%;border:1px solid red;"><img src="img/9.large.jpg" alt="">
+    <img src="img/10.large.jpg" alt=""><img src="img/11.large.jpg" alt=""><img src="img/12.large.jpg" alt=""><img src="img/13.large.jpg" alt=""><img src="img/14.large.jpg" alt="">
+</div>
+<!--<div id="div1">ckjldsanlfvuvrqelsncnuurrrncswiourrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr-->
+    <!--ddddddddddddddddddddddddddddddddddddddddddddddd-->
+    <!--dddddddddddddddddddddddddddddddddddddddddddddddd-->
+    <!--ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-->
+    <!--fjtgjjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhffrtdeeeeeeeeeeeeeeeeeeeyrhcrccctttttttttttttttttuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuukyyyyyyyyyyyyyyyyyyyyyyyvkkkkkkkkkkkkkkkkkkkkkkkkkkkkcccccccccccccccccccccccccccccccctttttttttttttttttttttttttttt-->
+    <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
+
+
+
+    <!--hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh-->
+    <!--hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh-->
+
+
+    <!--hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh-->
+    <!--ssssssssssssssssssssssssssssss-->
+
+
+    <!--ssssssssssssssssssssssssssssss-->
+
+    <!--ssssssssssssssssssssssssssssss-->
+    <!--ssssssssssssssssssssssssssssss</div>-->
+
+<script>
+    /*
+     首先是分成了两个左右对角，角度是90度从-45到正45度首先在触摸时候判断
+     *这个是仿照的手机触屏事件因为在触屏事件会有//开始触摸
+     */
+   var winh=window.innerWidth;
+ var startx,starty,movex,movey,endx,endy,nx,ny,angle;
+    var box= document.getElementById('box');
+    function touchs(event){
+//        alert(this);
+//        是调用的函数
+
+        event.preventDefault();
+        if(event.type=="touchstart"){
+//            /!*console.log('开始');*!/*/
+           var touch = event.touches[0];
+            startx = Math.floor(touch.pageX);
+            starty = Math.floor(touch.pageY);
+        }else if(event.type=="touchmove"){
+            /*console.log('滑动中');*/
+
+            var touch = event.touches[0];
+            /*
+             *  touches         //位于屏幕上的所有手指的列表
+             targetTouches   //位于该元素上的所有手指的列表
+             changedTouches  //涉及当前事件的所有手指的列表
+             * pageX    //相对于页面的 X 坐标
+             pageY    //相对于页面的 Y 坐标
+             clientX  //相对于视区的 X 坐标
+             clientY  //相对于视区的 Y 坐标
+             screenX  //相对于屏幕的 X 坐标
+             screenY  //相对于屏幕的 Y 坐标
+
+             identifier // 当前触摸点的惟一编号
+             target   //手指所触摸的 DOM 元素
+             复制代码
+             其他相关事件：
+
+             event.preventDefault（）   //阻止触摸时浏览器的缩放、滚动条滚动
+             var supportTouch = "createTouch" in document  //判断是否支持触摸事件
+             * */
+            movex = Math.floor(touch.pageX);
+//            移动时候的水平坐标
+            movey = Math.floor(touch.pageY);
+//            移动时候的水平坐标
+
+        }else if(event.type == "touchend" || event.type == "touchcancel"){
+            endx = Math.floor(event.changedTouches[0].pageX);
+            endy = Math.floor(event.changedTouches[0].pageY);
+            /*console.log('结束');*/
+
+            nx = endx-startx;
+            ny = endy-starty;
+
+            //通过坐标计算角度公式 Math.atan2(y,x)*180/Math.PI
+            angle = Math.atan2(ny, nx) * 180 / Math.PI;
+//求结束时候的竖直方向/水平得到角度来和45或者-45在这之间就是向左
+            if(Math.abs(nx)<=1 ||Math.abs(ny)<=1){
+                alert('滑动距离太小');
+//                console.log('滑动距离太小');
+                return false;}
+
+            if(angle<45 && angle>=-45){
+                alert('右滑动');
+                return false;
+            }else if(angle<135 && angle>=45){
+                console.log('下滑动');
+                var target= document.documentElement||document.body;
+
+                target.scrollTo(0, target.scrollTop+=50);
+                return false;
+            }else if((angle<=180 && angle>=135) || (angle>=-180 && angle<-135 )){
+                alert('左滑动');
+                return false;
+            }else if(angle<=-45 && angle >=-135){
+                console.log('上滑动');
+                var target= document.documentElement||document.body;
+
+                target.scrollTo(0, target.scrollTop-=50);
+//             
+                return false;
+            }
+
+        }
+
+    }
+
+    box.addEventListener('touchstart',touchs,false);
+    box.addEventListener('touchmove',touchs,false);
+    box.addEventListener('touchend',touchs,false);
+    /*
+     * 事件触发时，会将一个 Event 对象传递给事件处理程序，因为addeventlistener是为了给某一个元素添加一个事件当事件被触发时候的就会产生一个event对象所以在传入的回调函数中也会产生event对象
+     * 并不是只有直接写出的事件触发才有event通过如b.onclick=function(e){}其实只要有相应事件被触发的时候都会产生event对象就是只要有动作发生了处理的函数中就会产生event而且回调函数最好不要写匿名因为不利于销毁
+     *
+     *
+     * */
+</script>
+</body>
+</html>
